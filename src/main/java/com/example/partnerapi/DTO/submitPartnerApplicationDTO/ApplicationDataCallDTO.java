@@ -2,14 +2,17 @@ package com.example.partnerapi.DTO.submitPartnerApplicationDTO;
 
 
 import java.util.LinkedHashMap;
-        import java.util.Map;
-        import javax.annotation.Generated;
-        import com.fasterxml.jackson.annotation.JsonAnyGetter;
-        import com.fasterxml.jackson.annotation.JsonAnySetter;
-        import com.fasterxml.jackson.annotation.JsonIgnore;
-        import com.fasterxml.jackson.annotation.JsonInclude;
-        import com.fasterxml.jackson.annotation.JsonProperty;
-        import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.util.Map;
+import javax.annotation.Generated;
+
+import com.example.partnerapi.model.Application;
+import com.example.partnerapi.model.SystemTypeCategory;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -82,6 +85,53 @@ public class ApplicationDataCallDTO {
     private Boolean isSecondWaterHeaterSystem;
 
     public ApplicationDataCallDTO() {
+    }
+
+    public ApplicationDataCallDTO(Application application) {
+        this.insurance = application.getInsurance();
+        this.totalFinancingAmount = application.getTotalJobPrice();
+        this.propertyStreet = application.getPropertyAddress().getStreet();
+        this.propertyZip = application.getPropertyAddress().getZipcode();
+        this.propertyState = application.getPropertyAddress().getState();
+        this.totalJobPrice = application.getTotalJobPrice();
+        this.propertyCity = application.getPropertyAddress().getCity();
+        this.propertyCounty = application.getPropertyAddress().getCountry();
+        this.partnerAppId = application.getId();
+        this.dealerName = application.getSalesman().getDealerName();
+        this.salesmanName = application.getSalesman().getSalesmanName();
+        this.salesmanEmail = application.getSalesman().getSalesmanEmail();
+        this.salesmanPhone = application.getSalesman().getSalesmanPhone();
+
+        int i = 0;
+        while (i < application.getHeaterSystemList().size()) {
+            if (application.getHeaterSystemList().get(i).getSystemTypeCategory().equals(SystemTypeCategory.HVAC)) {
+                if (application.getHeaterSystemList().get(i).getIsSecondSystem()) {
+                    this.systemType = application.getHeaterSystemList().get(i).getSystemType().getSystemTypeName();
+                    this.tonnage = application.getHeaterSystemList().get(i).getTonnage();
+                    this.isSecondSystem = application.getHeaterSystemList().get(i).getIsSecondSystem();
+                    this.secondSystemType = application.getHeaterSystemList().get(i + 1).getSystemType().getSystemTypeName();
+                    this.secondSystemTonnage = application.getHeaterSystemList().get(i + 1).getTonnage();
+                    i = i + 2;
+                } else {
+                    this.systemType = application.getHeaterSystemList().get(i).getSystemType().getSystemTypeName();
+                    this.tonnage = application.getHeaterSystemList().get(i).getTonnage();
+                    this.isSecondSystem = application.getHeaterSystemList().get(i).getIsSecondSystem();
+                    i++;
+                }
+            } else {
+                if (application.getHeaterSystemList().get(i).getIsSecondSystem()) {
+                    this.waterHeaterSystemType = application.getHeaterSystemList().get(i).getSystemType().getSystemTypeName();
+                    this.isSecondWaterHeaterSystem = application.getHeaterSystemList().get(i).getIsSecondSystem();
+                    this.secondWaterHeaterSystemType = application.getHeaterSystemList().get(i + 1).getSystemType().getSystemTypeName();
+                    i = i + 2;
+                } else {
+                    this.waterHeaterSystemType = application.getHeaterSystemList().get(i).getSystemType().getSystemTypeName();
+                    this.isSecondWaterHeaterSystem = application.getHeaterSystemList().get(i).getIsSecondSystem();
+                    i++;
+                }
+            }
+        }
+
     }
 
     @JsonIgnore

@@ -1,5 +1,7 @@
 package com.example.partnerapi.model;
 
+import com.example.partnerapi.DTO.dataForANewApplicationDTO.AddressDTO;
+import com.example.partnerapi.DTO.dataForANewApplicationDTO.ApplicantDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -17,63 +19,50 @@ public class Applicant {
     @Column(name = "id")
     private Long id;
 
-    @Column(name="first_name", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String nameFirst;
 
-    @Column(name="last_name", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String nameLast;
 
-
-    //id type ??? exp "Drivers License"
     @Column(name = "id_type")
     private String idType;
 
-    @Column (name = "phone_mobile", nullable = false)
+    @Column(name = "phone_mobile", nullable = false)
     private String phoneMobile;
 
-    @Column (name = "phone_home")
+    @Column(name = "phone_home")
     private String phoneHome;
 
-    @Column (name = "phone_work")
+    @Column(name = "phone_work")
     private String phoneWork;
 
-    @Column (name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth", nullable = false)
     private String dateOfBirth;
 
-    @Column (name = "id_number")
+    @Column(name = "id_number")
     private String idNumber;
 
-    // social security administration
-    @Column (name = "ssn", nullable = false)
+    @Column(name = "ssn", nullable = false)
     private String ssn;
 
-    @Column (name = "bank_routing_number", nullable = false)
+    @Column(name = "bank_routing_number", nullable = false)
     private String bankRoutingNumber;
 
-    @Column (name = "bank_accounting_number", nullable = false)
+    @Column(name = "bank_accounting_number", nullable = false)
     private String bankAccountingNumber;
 
-    @Column (name = "email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column (name = "employer")
+    @Column(name = "employer")
     private String employer;
 
-    @Column (name = "monthly_income", nullable = false)
+    @Column(name = "monthly_income", nullable = false)
     private Long monthlyIncome;
 
-    @Column (name = "is_primary", nullable = false)
+    @Column(name = "is_primary", nullable = false)
     private Boolean isPrimary;
-
-//    @OneToOne
-//    @JsonBackReference(value = "application-primaryApplicant")
-//    @JoinColumn(name = "applicationPrimaryApplicant_id")
-//    private Application applicationPrimaryApplicant;
-//
-//    @OneToOne
-//    @JsonBackReference(value = "application-coApplicant")
-//    @JoinColumn(name = "applicationCoApplicant_id")
-//    private Application applicationCoApplicant;
 
     @ManyToOne
     @JsonBackReference(value = "application-applicant")
@@ -87,5 +76,18 @@ public class Applicant {
     public Applicant() {
     }
 
-
+    public Applicant(ApplicantDTO applicantDTO, AddressDTO addressDTO, Application newApplication) {
+        this.nameFirst = applicantDTO.getNameFirst();
+        this.nameLast = applicantDTO.getNameLast();
+        this.phoneMobile = applicantDTO.getPhoneMobile();
+        this.dateOfBirth = applicantDTO.getDateOfBirth();
+        this.ssn = applicantDTO.getSsn();
+        this.bankAccountingNumber = applicantDTO.getBankAccoutingNumber();
+        this.bankRoutingNumber = applicantDTO.getBankRoutingNumber();
+        this.email = applicantDTO.getEmail();
+        this.monthlyIncome = applicantDTO.getMonthlyIncome();
+        this.isPrimary = applicantDTO.getIsPrimary();
+        this.homeAddress = new Address(addressDTO, this);
+        this.application = newApplication;
+    }
 }

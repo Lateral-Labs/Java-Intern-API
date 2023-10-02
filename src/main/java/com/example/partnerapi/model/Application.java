@@ -1,5 +1,6 @@
 package com.example.partnerapi.model;
 
+import com.example.partnerapi.DTO.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,10 +25,13 @@ public class Application {
     private Long partnerAppId;
 
     @Column(name = "status")
-    private String status;
+    private String status;      //processingStatus
 
     @Column(name = "status_description")
-    private String statusDescription;
+    private String statusDescription;       //processingStatusDescription
+
+    @Column(name = "application_status")
+    private String applicationStatus;
 
     @Column(name = "reasons")
     private String reasons;
@@ -50,6 +54,18 @@ public class Application {
     @Column(name = "insurance")
     private Boolean insurance;
 
+    @Column(name = "rto_number")
+    private String rtoNumber;
+
+    @Column(name = "is_agreement_signed")
+    private Boolean isAgreementSigned;
+
+    @Column(name = "first_payment")
+    private String firstPayment;
+
+    @Column(name = "inserted_time")
+    private String insertedTime;
+
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "application-applicant")
     private List<Applicant> applicantList;
@@ -64,8 +80,8 @@ public class Application {
     private List<LeaseOption> leaseOptionList;
 
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "application-system")
-    private List<System> systemList;
+    @JsonManagedReference(value = "application-heaterSystem")
+    private List<HeaterSystem> heaterSystemList;
 
     @OneToOne(mappedBy = "application", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "application-salesman")
@@ -78,11 +94,30 @@ public class Application {
     public Application() {
     }
 
-    public List<System> getSystemList() {
-        if (systemList == null) {
-            systemList = new ArrayList<>();
+    public Application(DataForANewApplicationRequestDTO dataForANewApplicationRequestDTO) {
+        this.salesman = new Salesman(dataForANewApplicationRequestDTO.getSalesman(), this);
+        this.propertyAddress = new Address(dataForANewApplicationRequestDTO.getPropertyAddress(), this);
+        this.totalJobPrice = dataForANewApplicationRequestDTO.getTotalJobPrice();
+        this.insurance = dataForANewApplicationRequestDTO.getInsurance();
+        this.applicantList = new ArrayList<>();
+        this.applicantList.add(new Applicant(dataForANewApplicationRequestDTO.getPrimaryApplicant(), dataForANewApplicationRequestDTO.getHomeAddressPrimaryApplicant(), this));
+        this.applicantList.add(new Applicant(dataForANewApplicationRequestDTO.getCoApplicant(), dataForANewApplicationRequestDTO.getHomeAddressCoApplicant(), this));
+        this.heaterSystemList = setDataForSystems(dataForANewApplicationRequestDTO, this);
+    }
+
+    private List<HeaterSystem> setDataForSystems(DataForANewApplicationRequestDTO dataForANewApplicationRequestDTO, Application newApplication) {
+        List<HeaterSystem> heaterSystems = new ArrayList<>();
+        for (int i = 0; i < dataForANewApplicationRequestDTO.getSystemList().size(); i++) {
+                heaterSystems.add(new HeaterSystem(dataForANewApplicationRequestDTO, i, newApplication));
         }
-        return systemList;
+        return heaterSystems;
+    }
+
+    public List<HeaterSystem> getHeaterSystemList() {
+        if (heaterSystemList == null) {
+            heaterSystemList = new ArrayList<>();
+        }
+        return heaterSystemList;
     }
 
     public List<Brand> getBrandList() {

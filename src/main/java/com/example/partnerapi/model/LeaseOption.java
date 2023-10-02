@@ -1,5 +1,6 @@
 package com.example.partnerapi.model;
 
+import com.example.partnerapi.DTO.submitPartnerApplicationDTO.LeaseOptionDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -38,4 +39,13 @@ public class LeaseOption {
 
     public LeaseOption() {
     }
+
+    public LeaseOption(LeaseOptionDTO leaseOptionDTO, Application application) {
+        this.months = leaseOptionDTO.getMonths();
+        this.payment = leaseOptionDTO.getPayment();
+        this.isSelected = leaseOptionDTO.getIsSelected();
+        this.costOfLeaseServices = leaseOptionDTO.getCostOfLeaseServices();
+        this.application = application;
+    }
+
 }

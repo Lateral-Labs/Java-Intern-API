@@ -3,6 +3,8 @@ package com.example.partnerapi.DTO.submitPartnerApplicationDTO;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
+import com.example.partnerapi.model.Applicant;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -73,6 +75,28 @@ public class ApplicantCallDTO {
 
     public ApplicantCallDTO() {
     }
+
+    public ApplicantCallDTO(Applicant applicant) {
+        this.nameFirst = applicant.getNameFirst();
+        this.nameLast = applicant.getNameLast();
+        this.idType = applicant.getIdType();
+        this.city = applicant.getHomeAddress().getCity();
+        this.county = applicant.getHomeAddress().getCountry();
+        this.phoneMobile = applicant.getPhoneMobile();
+        this.phoneHome = applicant.getPhoneHome();
+        this.dateOfBirth = applicant.getDateOfBirth();
+        this.idNumber = applicant.getIdNumber();
+        this.ssn = applicant.getSsn();
+        this.zipcode = applicant.getHomeAddress().getZipcode();
+        this.street = applicant.getHomeAddress().getStreet();
+        this.bankRoutingNumber = applicant.getBankRoutingNumber();
+        this.bankAccountNumber = applicant.getBankAccountingNumber();
+        this.state = applicant.getHomeAddress().getState();
+        this.email = applicant.getEmail();
+        this.idStateIssue = applicant.getHomeAddress().getState();
+        this.monthlyIncome = applicant.getMonthlyIncome();
+    }
+
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();

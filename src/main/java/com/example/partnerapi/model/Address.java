@@ -1,5 +1,6 @@
 package com.example.partnerapi.model;
 
+import com.example.partnerapi.DTO.dataForANewApplicationDTO.AddressDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -41,5 +42,21 @@ public class Address {
     private Application applicationPropertyAddress;
 
     public Address() {
+    }
+
+    public Address(AddressDTO addressDTO, Applicant newApplicant) {
+        this.city = addressDTO.getCity();
+        this.zipcode = addressDTO.getZipcode();
+        this.street = addressDTO.getStreet();
+        this.state = addressDTO.getState();
+        this.applicant = newApplicant;
+    }
+
+    public Address(AddressDTO addressDTO, Application newApplication) {
+        this.city = addressDTO.getCity();
+        this.zipcode = addressDTO.getZipcode();
+        this.street = addressDTO.getStreet();
+        this.state = addressDTO.getState();
+        this.applicationPropertyAddress = newApplication;
     }
 }

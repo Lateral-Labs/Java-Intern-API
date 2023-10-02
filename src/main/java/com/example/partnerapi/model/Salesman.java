@@ -1,5 +1,6 @@
 package com.example.partnerapi.model;
 
+import com.example.partnerapi.DTO.dataForANewApplicationDTO.SalesmanDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -35,4 +36,13 @@ public class Salesman {
 
     public Salesman() {
     }
+
+    public Salesman(SalesmanDTO salesmanDTO, Application newApplication) {
+        this.salesmanName = salesmanDTO.getSalesmanName();
+        this.salesmanEmail = salesmanDTO.getSalesmanEmail();
+        this.salesmanPhone = salesmanDTO.getSalesmanPhone();
+        this.dealerName = salesmanDTO.getDealerName();
+        this.application = newApplication;
+    }
+
 }

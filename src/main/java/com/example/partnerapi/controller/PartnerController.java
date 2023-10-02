@@ -1,5 +1,7 @@
 package com.example.partnerapi.controller;
 
+import com.example.partnerapi.DTO.acceptLeaseOfferDTO.AcceptLeaseOfferRequestDTO;
+import com.example.partnerapi.DTO.acceptLeaseOfferDTO.AcceptLeaseOfferResponseDTO;
 import com.example.partnerapi.DTO.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
 import com.example.partnerapi.DTO.submitPartnerApplicationDTO.SubmitPartnerApplicationResponseDTO;
 import com.example.partnerapi.service.PartnerService;
@@ -32,5 +34,11 @@ public class PartnerController {
     public ResponseEntity<SubmitPartnerApplicationResponseDTO> submitPartnerApplication(@PathVariable("id") Long id) throws IOException, InterruptedException {
         return status(HttpStatus.OK).body(partnerService.submitPartnerApplication(id));
     }
+
+    @PostMapping("acceptLeaseOffer")
+    public void acceptLeaseOffer(@RequestBody AcceptLeaseOfferRequestDTO acceptLeaseOfferRequestDTO) throws IOException, InterruptedException {
+        partnerService.acceptLeaseOffer(acceptLeaseOfferRequestDTO);
+    }
+
 
 }
