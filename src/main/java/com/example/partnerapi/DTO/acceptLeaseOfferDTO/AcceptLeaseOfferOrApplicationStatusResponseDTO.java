@@ -26,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "processingStatusDescription",
         "monthlyPayment",
         "downPaymentAmount",
+        "retailCashPrice",
         "partnerAppId",
         "submittedBy",
         "firstPayment",
@@ -33,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "leaseOptions"
 })
 @Generated("jsonschema2pojo")
-public class AcceptLeaseOfferResponseDTO {
+public class AcceptLeaseOfferOrApplicationStatusResponseDTO {
 
     @JsonProperty("applicationId")
     private Long applicationId;
@@ -57,6 +58,9 @@ public class AcceptLeaseOfferResponseDTO {
     private Double monthlyPayment;
     @JsonProperty("downPaymentAmount")
     private Double downPaymentAmount;
+
+    @JsonProperty("retailCashPrice")
+    private Double retailCashPrice;
     @JsonProperty("partnerAppId")
     private String partnerAppId;
     @JsonProperty("submittedBy")
@@ -180,6 +184,16 @@ public class AcceptLeaseOfferResponseDTO {
         this.downPaymentAmount = downPaymentAmount;
     }
 
+    @JsonProperty("retailCashPrice")
+    public Double getRetailCashPrice() {
+        return retailCashPrice;
+    }
+
+    @JsonProperty("retailCashPrice")
+    public void setRetailCashPrice(Double retailCashPrice) {
+        this.retailCashPrice = retailCashPrice;
+    }
+
     @JsonProperty("partnerAppId")
     public String getPartnerAppId() {
         return partnerAppId;
@@ -240,4 +254,6 @@ public class AcceptLeaseOfferResponseDTO {
         this.additionalProperties.put(name, value);
     }
 
+    public AcceptLeaseOfferOrApplicationStatusResponseDTO() {
+    }
 }

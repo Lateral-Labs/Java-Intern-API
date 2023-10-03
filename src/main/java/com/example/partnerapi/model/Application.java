@@ -66,6 +66,9 @@ public class Application {
     @Column(name = "inserted_time")
     private String insertedTime;
 
+    @Column(name = "retail_cash_price")
+    private Double retailCashPrice;
+
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "application-applicant")
     private List<Applicant> applicantList;

@@ -3,6 +3,8 @@ package com.example.partnerapi.DTO.submitPartnerApplicationDTO;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
+
+import com.example.partnerapi.model.LeaseOption;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +35,17 @@ public class LeaseOptionDTO {
     private Double costOfLeaseServices;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
+
+    public LeaseOptionDTO() {
+    }
+
+    public LeaseOptionDTO(LeaseOption leaseOption) {
+        this.months = leaseOption.getMonths();
+        this.payment = leaseOption.getPayment();
+        this.totalPayment = leaseOption.getTotalPayment();
+        this.isSelected = leaseOption.getIsSelected();
+        this.costOfLeaseServices = leaseOption.getCostOfLeaseServices();
+    }
 
     @JsonProperty("months")
     public Integer getMonths() {
