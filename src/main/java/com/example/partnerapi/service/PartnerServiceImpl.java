@@ -3,6 +3,10 @@ package com.example.partnerapi.service;
 import com.example.partnerapi.DTO.acceptLeaseOfferDTO.AcceptLeaseOfferRequestDTO;
 import com.example.partnerapi.DTO.acceptLeaseOfferDTO.AcceptLeaseOfferOrApplicationStatusResponseDTO;
 import com.example.partnerapi.DTO.applicationStatusDTO.ApplicationStatusResponseDTO;
+import com.example.partnerapi.DTO.completeWorkDTO.CompleteWorkResponseDTO;
+import com.example.partnerapi.DTO.completeWorkDTO.CompleteWorkRequestDTO;
+import com.example.partnerapi.DTO.completeWorkDTO.SelectedBrandDTO;
+import com.example.partnerapi.DTO.completeWorkDTO.WorkCompletionDocDTO;
 import com.example.partnerapi.DTO.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
 import com.example.partnerapi.DTO.submitPartnerApplicationDTO.*;
 import com.example.partnerapi.model.*;
@@ -63,13 +67,12 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     public SubmitPartnerApplicationResponseDTO submitPartnerApplication(Long applicationId) throws IOException {
         Application application = applicationRepository.findById(applicationId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found"));
-        String url = basicUrl + "v2/partner/submit_app";
+        String url = basicUrl + "partner/submit_app";
         DataForSubmitPartnerApplicationCallDTO dataForSubmitPartnerApplicationCallDTO = createDataForSubmitPartnerApplicationCall(application);
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonStr = null;
         try {
             jsonStr = objectMapper.writeValueAsString(dataForSubmitPartnerApplicationCallDTO);
-            java.lang.System.out.println(jsonStr);
         } catch (IOException e) {
             log.error("The mapping from object to json was not done");
         }
@@ -128,6 +131,9 @@ public class PartnerServiceImpl implements PartnerService {
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonStr))
                 .build();
+        log.info("URL: " + url + "?secretKey=" + secretKey + "&dealerKey=" + dealerKey);
+        log.info("Method: POST");
+        log.info("Json " + jsonStr);
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -139,16 +145,15 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Override
     public void acceptLeaseOffer(AcceptLeaseOfferRequestDTO acceptLeaseOfferRequestDTO) throws IOException {
-        String url = basicUrl + "v2/accept_lease_offer";
+        String url = basicUrl + "accept_lease_offer";
         Application application = applicationRepository.findById(acceptLeaseOfferRequestDTO.getApplicationId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found"));
         acceptLeaseOfferRequestDTO.setApplicationId(application.getPartnerAppId());
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonStr = null;
         try {
             jsonStr = objectMapper.writeValueAsString(acceptLeaseOfferRequestDTO);
-            log.info("Json " + jsonStr);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Mapping DTO object to Json failed.");
         }
         String responseBody = createPostRequestAndGetResponseBody(url, jsonStr);
         log.info("Response " + responseBody);
@@ -172,7 +177,7 @@ public class PartnerServiceImpl implements PartnerService {
 
     @Override
     public ApplicationStatusResponseDTO applicationStatus(Long id) throws JsonProcessingException {
-        String url = basicUrl + "v2/app_status";
+        String url = basicUrl + "app_status";
         Application application = applicationRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found"));
         String applicationIdStr = Long.toString(application.getPartnerAppId());
         String responseBody = createGetRequestAndGetResponseBody(url, applicationIdStr);
@@ -194,6 +199,8 @@ public class PartnerServiceImpl implements PartnerService {
                 .header("Content-Type", "application/json")
                 .GET()
                 .build();
+        log.info("URL: " + url + "?secretKey=" + secretKey + "&dealerKey=" + dealerKey + "&applicationId=" + applicationIdStr);
+        log.info("Method: GET");
         HttpResponse<String> response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -220,6 +227,49 @@ public class PartnerServiceImpl implements PartnerService {
             newLeaseOption.setIsSelected(true);
         }
         applicationRepository.save(application);
+    }
+
+    @Override
+    public CompleteWorkResponseDTO completeWork(CompleteWorkRequestDTO completeWorkRequestDTO) throws JsonProcessingException {
+        String url = basicUrl + "partner_complete_work";
+        Application application = applicationRepository.findById(completeWorkRequestDTO.getApplicationId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Application not found"));
+        completeWorkRequestDTO.setApplicationId(application.getPartnerAppId());
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonStr = null;
+        try {
+            jsonStr = objectMapper.writeValueAsString(completeWorkRequestDTO);
+        } catch (IOException e) {
+            log.error("Mapping DTO object to Json failed.");
+        }
+        String responseBody = createPostRequestAndGetResponseBody(url, jsonStr);
+        log.info("Response " + responseBody);
+        CompleteWorkResponseDTO completeWorkResponseDTO = objectMapper.readValue(responseBody, CompleteWorkResponseDTO.class);
+        if (completeWorkResponseDTO.getRtoNumber() != null) {
+            updateApplicationCompleteWork(application, completeWorkRequestDTO);
+        }
+        return completeWorkResponseDTO;
+    }
+
+    public void updateApplicationCompleteWork(Application application, CompleteWorkRequestDTO completeWorkRequestDTO) {
+        application.setInstallDate(completeWorkRequestDTO.getInstallDate());
+        application.setWorkCompletionDocList(mapWorkCompletionDoc(completeWorkRequestDTO.getWorkCompletionDocs(), application));
+        application.setSelectedBrandList(mapSelectedBrand(completeWorkRequestDTO.getSelectedBrands(), application));
+    }
+
+    public List<SelectedBrand> mapSelectedBrand(List<SelectedBrandDTO> selectedBrands, Application application) {
+        List<SelectedBrand> selectedBrandList = new ArrayList<>();
+        for (SelectedBrandDTO selectedBrandDTO : selectedBrands) {
+            selectedBrandList.add(new SelectedBrand(selectedBrandDTO, application));
+        }
+        return selectedBrandList;
+    }
+
+    public List<WorkCompletionDoc> mapWorkCompletionDoc(List<WorkCompletionDocDTO> workCompletionDocs, Application application) {
+        List<WorkCompletionDoc> workCompletionDocList = new ArrayList<>();
+        for (WorkCompletionDocDTO workCompletionDocDTO : workCompletionDocs) {
+            workCompletionDocList.add(new WorkCompletionDoc(workCompletionDocDTO, application));
+        }
+        return workCompletionDocList;
     }
 
 }

@@ -2,9 +2,12 @@ package com.example.partnerapi.controller;
 
 import com.example.partnerapi.DTO.acceptLeaseOfferDTO.AcceptLeaseOfferRequestDTO;
 import com.example.partnerapi.DTO.applicationStatusDTO.ApplicationStatusResponseDTO;
+import com.example.partnerapi.DTO.completeWorkDTO.CompleteWorkResponseDTO;
+import com.example.partnerapi.DTO.completeWorkDTO.CompleteWorkRequestDTO;
 import com.example.partnerapi.DTO.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
 import com.example.partnerapi.DTO.submitPartnerApplicationDTO.SubmitPartnerApplicationResponseDTO;
 import com.example.partnerapi.service.PartnerService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +46,10 @@ public class PartnerController {
     @GetMapping("applicationStatus/{id}")
     public ResponseEntity<ApplicationStatusResponseDTO> getApplicationStatus(@PathVariable("id") Long id) throws IOException {
         return status(HttpStatus.OK).body(partnerService.applicationStatus(id));
+    }
+
+    @PutMapping("completeWork")
+    public ResponseEntity<CompleteWorkResponseDTO>getCompleteWork(@RequestBody CompleteWorkRequestDTO completeWorkRequestDTO) throws JsonProcessingException {
+        return status(HttpStatus.OK).body(partnerService.completeWork(completeWorkRequestDTO));
     }
 }

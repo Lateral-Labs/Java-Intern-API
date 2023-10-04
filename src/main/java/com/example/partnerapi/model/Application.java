@@ -69,6 +69,9 @@ public class Application {
     @Column(name = "retail_cash_price")
     private Double retailCashPrice;
 
+    @Column(name = "install_date")
+    private String installDate;
+
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "application-applicant")
     private List<Applicant> applicantList;
@@ -86,13 +89,17 @@ public class Application {
     @JsonManagedReference(value = "application-heaterSystem")
     private List<HeaterSystem> heaterSystemList;
 
+    @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "application-workCompletionDoc")
+    private List<WorkCompletionDoc> workCompletionDocList;
+
     @OneToOne(mappedBy = "application", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "application-salesman")
     private Salesman salesman;
 
     @OneToMany(mappedBy = "application", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "application-brand")
-    private List<Brand> brandList;
+    @JsonManagedReference(value = "application-selectedBrand")
+    private List<SelectedBrand> selectedBrandList;
 
     public Application() {
     }
@@ -123,11 +130,11 @@ public class Application {
         return heaterSystemList;
     }
 
-    public List<Brand> getBrandList() {
-        if (brandList == null) {
-            brandList = new ArrayList<>();
+    public List<SelectedBrand> getSelectedBrandList() {
+        if (selectedBrandList == null) {
+            selectedBrandList = new ArrayList<>();
         }
-        return brandList;
+        return selectedBrandList;
     }
 
     public List<Applicant> getApplicantList() {
@@ -142,5 +149,12 @@ public class Application {
             leaseOptionList = new ArrayList<>();
         }
         return leaseOptionList;
+    }
+
+    public List<WorkCompletionDoc> getWorkCompletionDocList() {
+        if (workCompletionDocList == null) {
+            workCompletionDocList = new ArrayList<>();
+        }
+        return workCompletionDocList;
     }
 }

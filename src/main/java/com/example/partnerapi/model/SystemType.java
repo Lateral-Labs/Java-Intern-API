@@ -25,9 +25,9 @@ public enum SystemType {
         this.systemTypeName = systemTypeName;
     }
 
-    public static SystemType valueOfSystemTypeName(String systemTypeName) {
+    public static SystemType valueOfSystemTypeName(String systemTypeName1) {
         for (SystemType systemType : values()) {
-            if (systemType.systemTypeName.equals(systemTypeName)) {
+            if (systemType.systemTypeName.equals(systemTypeName1)) {
                 return systemType;
             }
         }
