@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.acceptLeaseOfferDTO;
+package com.example.partnerapi.dto.completeWorkDTO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -12,18 +12,41 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "applicationId",
-        "acceptedTerm"
+        "rtoNumber",
+        "message",
+        "applicationId"
 })
 @Generated("jsonschema2pojo")
-public class AcceptLeaseOfferRequestDTO {
+public class CompleteWorkResponseDTO {
 
+    @JsonProperty("rtoNumber")
+    private String rtoNumber;
+    @JsonProperty("message")
+    private String message;
     @JsonProperty("applicationId")
     private Long applicationId;
-    @JsonProperty("acceptedTerm")
-    private Integer acceptedTerm;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
+
+    @JsonProperty("rtoNumber")
+    public String getRtoNumber() {
+        return rtoNumber;
+    }
+
+    @JsonProperty("rtoNumber")
+    public void setRtoNumber(String rtoNumber) {
+        this.rtoNumber = rtoNumber;
+    }
+
+    @JsonProperty("message")
+    public String getMessage() {
+        return message;
+    }
+
+    @JsonProperty("message")
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     @JsonProperty("applicationId")
     public Long getApplicationId() {
@@ -33,16 +56,6 @@ public class AcceptLeaseOfferRequestDTO {
     @JsonProperty("applicationId")
     public void setApplicationId(Long applicationId) {
         this.applicationId = applicationId;
-    }
-
-    @JsonProperty("acceptedTerm")
-    public Integer getAcceptedTerm() {
-        return acceptedTerm;
-    }
-
-    @JsonProperty("acceptedTerm")
-    public void setAcceptedTerm(Integer acceptedTerm) {
-        this.acceptedTerm = acceptedTerm;
     }
 
     @JsonAnyGetter

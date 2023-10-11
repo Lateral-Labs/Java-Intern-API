@@ -1,6 +1,6 @@
 package com.example.partnerapi.model;
 
-import com.example.partnerapi.DTO.completeWorkDTO.WorkCompletionDocDTO;
+import com.example.partnerapi.dto.completeWorkDTO.WorkCompletionDocDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;

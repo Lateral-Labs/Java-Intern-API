@@ -1,4 +1,4 @@
-package com.example.partnerapi.model;
+package com.example.partnerapi.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,7 +31,7 @@ public enum SystemType {
                 return systemType;
             }
         }
-        throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "System Type isn't correct.");
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "System Type isn't correct.");
     }
 
     public String getSystemTypeName() {

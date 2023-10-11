@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.completeWorkDTO;
+package com.example.partnerapi.dto.completeWorkDTO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

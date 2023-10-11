@@ -1,11 +1,11 @@
 package com.example.partnerapi.controller;
 
-import com.example.partnerapi.DTO.acceptLeaseOfferDTO.AcceptLeaseOfferRequestDTO;
-import com.example.partnerapi.DTO.applicationStatusDTO.ApplicationStatusResponseDTO;
-import com.example.partnerapi.DTO.completeWorkDTO.CompleteWorkResponseDTO;
-import com.example.partnerapi.DTO.completeWorkDTO.CompleteWorkRequestDTO;
-import com.example.partnerapi.DTO.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
-import com.example.partnerapi.DTO.submitPartnerApplicationDTO.SubmitPartnerApplicationResponseDTO;
+import com.example.partnerapi.dto.acceptLeaseOfferDTO.AcceptLeaseOfferRequestDTO;
+import com.example.partnerapi.dto.applicationStatusDTO.ApplicationStatusResponseDTO;
+import com.example.partnerapi.dto.completeWorkDTO.CompleteWorkResponseDTO;
+import com.example.partnerapi.dto.completeWorkDTO.CompleteWorkRequestDTO;
+import com.example.partnerapi.dto.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
+import com.example.partnerapi.dto.submitPartnerApplicationDTO.SubmitPartnerApplicationResponseDTO;
 import com.example.partnerapi.service.PartnerService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;

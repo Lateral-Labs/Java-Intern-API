@@ -1,6 +1,8 @@
 package com.example.partnerapi.model;
 
-import com.example.partnerapi.DTO.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
+import com.example.partnerapi.dto.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
+import com.example.partnerapi.util.SystemType;
+import com.example.partnerapi.util.SystemTypeCategory;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,9 +21,11 @@ public class HeaterSystem {
     @Column(name = "id")
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "system_type", nullable = false)
     private SystemType systemType;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "system_type_category", nullable = false)
     private SystemTypeCategory systemTypeCategory;
 

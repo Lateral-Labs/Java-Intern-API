@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.applicationStatusDTO;
+package com.example.partnerapi.dto.applicationStatusDTO;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 
-import com.example.partnerapi.DTO.submitPartnerApplicationDTO.LeaseOptionDTO;
+import com.example.partnerapi.dto.submitPartnerApplicationDTO.LeaseOptionDTO;
 import com.example.partnerapi.model.Application;
 import com.example.partnerapi.model.LeaseOption;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import lombok.NonNull;
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
 @JsonPropertyOrder({
@@ -52,18 +51,18 @@ public class ApplicationStatusResponseDTO {
 
     public ApplicationStatusResponseDTO(Application application) {
         this.applicationStatus = application.getApplicationStatus();
-        this.processingStatus = application.getStatus();
-        this.processingStatusDescription = application.getStatusDescription();
+        this.processingStatus = application.getStatus().getStatusInitials();
+        this.processingStatusDescription = application.getStatus().getStatusDescription();
         this.downPaymentAmount = application.getDownPayment();
         this.firstPayment = application.getFirstPayment();
         this.isAgreementSigned = application.getIsAgreementSigned();
         this.leaseOptions = new ArrayList<>();
-        for (LeaseOption leaseOption : application.getleaseOptionList()) {
-            if (leaseOption.getIsSelected()) {
-                this.leaseOptions.add(new LeaseOptionDTO(leaseOption));
-            }
+        for (LeaseOption leaseOption : application.getLeaseOptionList()) {
+            this.leaseOptions.add(new LeaseOptionDTO(leaseOption));
         }
-
+        if (this.leaseOptions.isEmpty()) {
+            this.leaseOptions = null;
+        }
     }
 
     @JsonProperty("processingStatus")

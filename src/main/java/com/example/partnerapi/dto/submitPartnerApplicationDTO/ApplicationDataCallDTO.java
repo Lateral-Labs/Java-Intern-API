@@ -1,19 +1,22 @@
-package com.example.partnerapi.DTO.submitPartnerApplicationDTO;
-
+package com.example.partnerapi.dto.submitPartnerApplicationDTO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
 
 import com.example.partnerapi.model.Application;
-import com.example.partnerapi.model.SystemTypeCategory;
+import com.example.partnerapi.util.SystemTypeCategory;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import lombok.Data;
 
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "insurance",
@@ -43,44 +46,72 @@ public class ApplicationDataCallDTO {
 
     @JsonProperty("insurance")
     private Boolean insurance;
+
+    @NotEmpty
     @JsonProperty("totalFinancingAmount")
     private Double totalFinancingAmount;
+
+    @NotEmpty
     @JsonProperty("propertyStreet")
     private String propertyStreet;
+
+    @NotEmpty
+    @Pattern(regexp = "[0-9]{5}", message = "Zip number must have 5 digits")
     @JsonProperty("propertyZip")
     private String propertyZip;
+
+    @NotEmpty
+    @Pattern(regexp = "[A-Za-z]{2}", message = "State abbreviation must have 2 digits")
     @JsonProperty("propertyState")
     private String propertyState;
+
+    @NotEmpty
     @JsonProperty("totalJobPrice")
     private Double totalJobPrice;
+
+    @NotEmpty
     @JsonProperty("propertyCity")
     private String propertyCity;
+
     @JsonProperty("propertyCounty")
     private String propertyCounty;
+
     @JsonProperty("partnerAppId")
     private Long partnerAppId;
+
     @JsonProperty("dealerName")
     private String dealerName;
+
     @JsonProperty("salesmanName")
     private String salesmanName;
+
     @JsonProperty("salesmanEmail")
     private String salesmanEmail;
+
     @JsonProperty("salesmanPhone")
     private String salesmanPhone;
+
     @JsonProperty("systemType")
     private String systemType;
+
     @JsonProperty("tonnage")
     private String tonnage;
+
     @JsonProperty("isSecondSystem")
     private Boolean isSecondSystem;
+
     @JsonProperty("secondSystemType")
     private String secondSystemType;
+
     @JsonProperty("secondSystemTonnage")
     private String secondSystemTonnage;
+
     @JsonProperty("waterHeaterSystemType")
     private String waterHeaterSystemType;
+
     @JsonProperty("secondWaterHeaterSystemType")
     private String secondWaterHeaterSystemType;
+
     @JsonProperty("isSecondWaterHeaterSystem")
     private Boolean isSecondWaterHeaterSystem;
 

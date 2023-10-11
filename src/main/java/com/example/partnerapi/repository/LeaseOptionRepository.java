@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface LeaseOptionRepository extends JpaRepository<LeaseOption, Long> {
 
     Optional<LeaseOption> findLeaseOptionByMonthsAndApplication(Integer numberOfMonths, Application application);
-    Optional<LeaseOption>findByIsSelectedAndApplication(Boolean isSelected, Application application);
+    LeaseOption findByIsSelectedAndApplication(Boolean isSelected, Application application);
 }

@@ -1,6 +1,7 @@
 package com.example.partnerapi.model;
 
-import com.example.partnerapi.DTO.completeWorkDTO.SelectedBrandDTO;
+import com.example.partnerapi.dto.completeWorkDTO.SelectedBrandDTO;
+import com.example.partnerapi.util.SystemTypeCategory;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,7 +26,7 @@ public class SelectedBrand {
     @Column(name = "serial_number")
     private String serialNumber;
 
-    //enum
+    @Enumerated(EnumType.STRING)
     @Column(name = "system_type_category")
     private SystemTypeCategory systemTypeCategory;
 
@@ -42,6 +43,7 @@ public class SelectedBrand {
         this.systemMake = selectedBrandDTO.getSystemMake();
         this.serialNumber = selectedBrandDTO.getSerialNumber();
         this.systemTypeCategory = SystemTypeCategory.valueOfSystemTypeCategory(selectedBrandDTO.getSystemTypeCategory());
+        this.application = application;
     }
 
 }

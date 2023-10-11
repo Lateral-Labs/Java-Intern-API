@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.submitPartnerApplicationDTO;
+package com.example.partnerapi.dto.submitPartnerApplicationDTO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

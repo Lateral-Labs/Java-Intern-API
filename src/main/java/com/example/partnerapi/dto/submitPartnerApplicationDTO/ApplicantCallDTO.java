@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.submitPartnerApplicationDTO;
+package com.example.partnerapi.dto.submitPartnerApplicationDTO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -35,41 +37,73 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 @Generated("jsonschema2pojo")
 public class ApplicantCallDTO {
-
+    @NotEmpty
     @JsonProperty("nameFirst")
     private String nameFirst;
+
+    @NotEmpty
     @JsonProperty("nameLast")
     private String nameLast;
+
     @JsonProperty("idType")
     private String idType;
+    @NotEmpty
     @JsonProperty("city")
     private String city;
+
     @JsonProperty("county")
     private String county;
+
+    @NotEmpty
+    @Pattern(regexp = "[0-9]()-+", message = "Phone mobile have to contains caracters like 0-9, ()-+")
     @JsonProperty("phoneMobile")
     private String phoneMobile;
     @JsonProperty("phoneHome")
     private String phoneHome;
+
+    @NotEmpty
+    @Pattern(regexp = "^([0-9]{2}/[0-9]{2}/[0-9]{4})$", message = "Date format should be dd/mm/yyyy")
     @JsonProperty("dateOfBirth")
     private String dateOfBirth;
     @JsonProperty("idNumber")
     private String idNumber;
+
+    @NotEmpty
+    @Pattern(regexp = "[0-9]{9}", message = "ssn must have 9 digits")
     @JsonProperty("ssn")
     private String ssn;
+
+    @NotEmpty
+    @Pattern(regexp = "[0-9]{5}", message = "Zip number must have 5 digits")
     @JsonProperty("zipcode")
     private String zipcode;
+
+    @NotEmpty
     @JsonProperty("street")
     private String street;
+
+    @NotEmpty
+    @Pattern(regexp = "[a-zA-Z0-9]{1,9}", message = "Bank Routing Number must have 9 digits")
     @JsonProperty("bankRoutingNumber")
     private String bankRoutingNumber;
+
+    @NotEmpty
+    @Pattern(regexp = "[0-9]", message = "Bank Accounting Number must have only numbers allowed")
     @JsonProperty("bankAccountNumber")
     private String bankAccountNumber;
+
+    @NotEmpty
+    @Pattern(regexp = "[A-Za-z]{2}", message = "State abbreviation must have 2 digits")
     @JsonProperty("state")
     private String state;
+
+    @NotEmpty
     @JsonProperty("email")
     private String email;
     @JsonProperty("idStateIssue")
     private String idStateIssue;
+
+    @NotEmpty
     @JsonProperty("monthlyIncome")
     private Long monthlyIncome;
 

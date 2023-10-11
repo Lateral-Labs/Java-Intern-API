@@ -1,4 +1,4 @@
-package com.example.partnerapi.model;
+package com.example.partnerapi.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;

@@ -1,17 +1,17 @@
-package com.example.partnerapi.DTO.submitPartnerApplicationDTO;
+package com.example.partnerapi.dto.submitPartnerApplicationDTO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
 
-import com.example.partnerapi.DTO.submitPartnerApplicationDTO.ApplicantCallDTO;
-import com.example.partnerapi.DTO.submitPartnerApplicationDTO.ApplicationDataCallDTO;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -21,11 +21,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 @Generated("jsonschema2pojo")
 public class DataForSubmitPartnerApplicationCallDTO {
-
+    @Valid
+    @NotNull
     @JsonProperty("applicationData")
     private ApplicationDataCallDTO applicationData;
+    @Valid
+    @NotNull
     @JsonProperty("primaryApplicant")
     private ApplicantCallDTO primaryApplicant;
+    @Valid
+    @NotNull
     @JsonProperty("coApplicant")
     private ApplicantCallDTO coApplicant;
 

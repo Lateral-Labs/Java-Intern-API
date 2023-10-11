@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.dataForANewApplicationDTO;
+package com.example.partnerapi.dto.dataForANewApplicationDTO;
 
 import java.util.LinkedHashMap;
 import java.util.List;

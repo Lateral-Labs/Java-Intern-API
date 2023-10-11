@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.completeWorkDTO;
+package com.example.partnerapi.dto.completeWorkDTO;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,6 +10,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -22,14 +26,26 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @Generated("jsonschema2pojo")
 public class CompleteWorkRequestDTO {
 
+    @NotEmpty
     @JsonProperty("applicationId")
     private Long applicationId;
+
+    @NotEmpty
+    @Pattern(regexp = "^([0-9]{2}/[0-9]{2}/[0-9]{4})$", message = "Date format should be yyyy/mm/dd")
     @JsonProperty("installDate")
     private String installDate;
+
+    @NotEmpty
     @JsonProperty("contractorInitials")
     private String contractorInitials;
+
+    @Valid
+    @NotNull
     @JsonProperty("workCompletionDocs")
     private List<WorkCompletionDocDTO> workCompletionDocs;
+
+    @Valid
+    @NotNull
     @JsonProperty("selectedBrands")
     private List<SelectedBrandDTO> selectedBrand;
     @JsonIgnore

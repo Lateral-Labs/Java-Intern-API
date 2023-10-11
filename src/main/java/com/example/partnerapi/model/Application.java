@@ -1,6 +1,7 @@
 package com.example.partnerapi.model;
 
-import com.example.partnerapi.DTO.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
+import com.example.partnerapi.dto.dataForANewApplicationDTO.DataForANewApplicationRequestDTO;
+import com.example.partnerapi.util.StatusApplicationEnum;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,12 +25,11 @@ public class Application {
     @Column(name = "application_id")
     private Long partnerAppId;
 
-    @Column(name = "status")
-    private String status;      //processingStatus
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private StatusApplicationEnum status;
 
-    @Column(name = "status_description")
-    private String statusDescription;       //processingStatusDescription
-
+    @NotNull
     @Column(name = "application_status")
     private String applicationStatus;
 
@@ -105,6 +105,7 @@ public class Application {
     }
 
     public Application(DataForANewApplicationRequestDTO dataForANewApplicationRequestDTO) {
+        this.status = StatusApplicationEnum.valueOf("NE","New");
         this.salesman = new Salesman(dataForANewApplicationRequestDTO.getSalesman(), this);
         this.propertyAddress = new Address(dataForANewApplicationRequestDTO.getPropertyAddress(), this);
         this.totalJobPrice = dataForANewApplicationRequestDTO.getTotalJobPrice();
@@ -130,13 +131,6 @@ public class Application {
         return heaterSystemList;
     }
 
-    public List<SelectedBrand> getSelectedBrandList() {
-        if (selectedBrandList == null) {
-            selectedBrandList = new ArrayList<>();
-        }
-        return selectedBrandList;
-    }
-
     public List<Applicant> getApplicantList() {
         if (applicantList == null) {
             applicantList = new ArrayList<>();
@@ -144,17 +138,10 @@ public class Application {
         return applicantList;
     }
 
-    public List<LeaseOption> getleaseOptionList() {
+    public List<LeaseOption> getLeaseOptionList() {
         if (leaseOptionList == null) {
             leaseOptionList = new ArrayList<>();
         }
         return leaseOptionList;
-    }
-
-    public List<WorkCompletionDoc> getWorkCompletionDocList() {
-        if (workCompletionDocList == null) {
-            workCompletionDocList = new ArrayList<>();
-        }
-        return workCompletionDocList;
     }
 }

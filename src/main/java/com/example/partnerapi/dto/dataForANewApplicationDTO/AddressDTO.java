@@ -1,10 +1,9 @@
-package com.example.partnerapi.DTO.dataForANewApplicationDTO;
+package com.example.partnerapi.dto.dataForANewApplicationDTO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Generated;
 
-import com.example.partnerapi.model.Address;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;

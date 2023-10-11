@@ -1,6 +1,6 @@
 package com.example.partnerapi.model;
 
-import com.example.partnerapi.DTO.dataForANewApplicationDTO.SalesmanDTO;
+import com.example.partnerapi.dto.dataForANewApplicationDTO.SalesmanDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;

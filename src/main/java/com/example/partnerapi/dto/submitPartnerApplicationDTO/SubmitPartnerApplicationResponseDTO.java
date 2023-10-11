@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.submitPartnerApplicationDTO;
+package com.example.partnerapi.dto.submitPartnerApplicationDTO;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(JsonInclude.Include.ALWAYS)
 @JsonPropertyOrder({
         "applicationId",
         "status",

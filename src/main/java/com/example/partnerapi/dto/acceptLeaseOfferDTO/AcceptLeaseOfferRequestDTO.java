@@ -1,4 +1,4 @@
-package com.example.partnerapi.DTO.completeWorkDTO;
+package com.example.partnerapi.dto.acceptLeaseOfferDTO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -9,44 +9,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.NotEmpty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-        "rtoNumber",
-        "message",
-        "applicationId"
+        "applicationId",
+        "acceptedTerm"
 })
 @Generated("jsonschema2pojo")
-public class CompleteWorkResponseDTO {
-
-    @JsonProperty("rtoNumber")
-    private String rtoNumber;
-    @JsonProperty("message")
-    private String message;
+public class AcceptLeaseOfferRequestDTO {
+    @NotEmpty
     @JsonProperty("applicationId")
     private Long applicationId;
+
+    @NotEmpty
+    @JsonProperty("acceptedTerm")
+    private Integer acceptedTerm;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
-
-    @JsonProperty("rtoNumber")
-    public String getRtoNumber() {
-        return rtoNumber;
-    }
-
-    @JsonProperty("rtoNumber")
-    public void setRtoNumber(String rtoNumber) {
-        this.rtoNumber = rtoNumber;
-    }
-
-    @JsonProperty("message")
-    public String getMessage() {
-        return message;
-    }
-
-    @JsonProperty("message")
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     @JsonProperty("applicationId")
     public Long getApplicationId() {
@@ -56,6 +37,16 @@ public class CompleteWorkResponseDTO {
     @JsonProperty("applicationId")
     public void setApplicationId(Long applicationId) {
         this.applicationId = applicationId;
+    }
+
+    @JsonProperty("acceptedTerm")
+    public Integer getAcceptedTerm() {
+        return acceptedTerm;
+    }
+
+    @JsonProperty("acceptedTerm")
+    public void setAcceptedTerm(Integer acceptedTerm) {
+        this.acceptedTerm = acceptedTerm;
     }
 
     @JsonAnyGetter
