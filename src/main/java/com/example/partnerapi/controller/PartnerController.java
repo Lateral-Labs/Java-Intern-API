@@ -49,7 +49,7 @@ public class PartnerController {
     }
 
     @PutMapping("completeWork")
-    public ResponseEntity<CompleteWorkResponseDTO>getCompleteWork(@RequestBody CompleteWorkRequestDTO completeWorkRequestDTO) throws JsonProcessingException {
+    public ResponseEntity<CompleteWorkResponseDTO> getCompleteWork(@RequestBody CompleteWorkRequestDTO completeWorkRequestDTO) throws JsonProcessingException {
         return status(HttpStatus.OK).body(partnerService.completeWork(completeWorkRequestDTO));
     }
 }

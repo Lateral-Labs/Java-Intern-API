@@ -1,5 +1,6 @@
 package com.example.partnerapi.service;
 
+import com.example.partnerapi.dto.LoginDTO;
 import com.example.partnerapi.dto.acceptLeaseOfferDTO.AcceptLeaseOfferRequestDTO;
 import com.example.partnerapi.dto.applicationStatusDTO.ApplicationStatusResponseDTO;
 import com.example.partnerapi.dto.completeWorkDTO.CompleteWorkResponseDTO;
@@ -22,6 +23,7 @@ public interface PartnerService {
     ApplicationStatusResponseDTO applicationStatus(Long id) throws JsonProcessingException;
 
     CompleteWorkResponseDTO completeWork(CompleteWorkRequestDTO completeWorkRequestDTO) throws JsonProcessingException;
+
 
 }
 

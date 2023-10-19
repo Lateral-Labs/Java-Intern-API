@@ -1,5 +1,6 @@
 package com.example.partnerapi.service;
 
+import com.example.partnerapi.dto.LoginDTO;
 import com.example.partnerapi.dto.acceptLeaseOfferDTO.AcceptLeaseOfferRequestDTO;
 import com.example.partnerapi.dto.acceptLeaseOfferDTO.AcceptLeaseOfferOrApplicationStatusResponseDTO;
 import com.example.partnerapi.dto.applicationStatusDTO.ApplicationStatusResponseDTO;
@@ -60,6 +61,7 @@ public class PartnerServiceImpl implements PartnerService {
         this.applicationRepository = applicationRepository;
         this.leaseOptionRepository = leaseOptionRepository;
     }
+
 
     @Override
     public Long getDataAndSaveANewApplication(DataForANewApplicationRequestDTO dataForANewApplicationRequestDTO) {
